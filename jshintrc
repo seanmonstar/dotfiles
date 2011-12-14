@@ -1,0 +1,21 @@
+{
+	"boss": true,
+	"curly": true,
+	"eqeqeq": true,
+	"noarg": true,
+	"undef": true,
+	"trailing": true,
+	"eqnull": true,
+	"maxerr": 100,
+
+	"predef": [
+		"require",
+		"module",
+		"exports",
+
+		"setTimeout",
+		"setInterval",
+		"clearTimeout",
+		"clearInterval"
+	]
+}
