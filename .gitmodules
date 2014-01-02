@@ -1,39 +1,39 @@
 [submodule "vim/bundle/pathogen"]
 	path = vim/bundle/pathogen
-	url = http://github.com/tpope/vim-fugitive.git
+	url = git://github.com/tpope/vim-fugitive.git
 [submodule "vim/bundle/NERD_tree"]
 	path = vim/bundle/NERD_tree
-	url = http://github.com/scrooloose/nerdtree.git
+	url = git://github.com/scrooloose/nerdtree.git
 [submodule "vim/bundle/SyntacFolds"]
 	path = vim/bundle/SyntacFolds
 	url = git://github.com/zalun/vim-SyntaxFolds.git
 [submodule "vim/bundle/delimitMate"]
 	path = vim/bundle/delimitMate
-	url = http://github.com/vim-scripts/delimitMate.vim.git
+	url = git://github.com/vim-scripts/delimitMate.vim.git
 [submodule "vim/bundle/easytags"]
 	path = vim/bundle/easytags
-	url = http://github.com/xolox/vim-easytags.git
+	url = git://github.com/xolox/vim-easytags.git
 [submodule "vim/bundle/fugitive"]
 	path = vim/bundle/fugitive
-	url = http://github.com/tpope/vim-fugitive.git
+	url = git://github.com/tpope/vim-fugitive.git
 [submodule "vim/bundle/matchit"]
 	path = vim/bundle/matchit
-	url = http://github.com/tsaleh/vim-matchit.git
+	url = git://github.com/tsaleh/vim-matchit.git
 [submodule "vim/bundle/pydoc"]
 	path = vim/bundle/pydoc
-	url = http://github.com/vim-scripts/pydoc.vim.git
+	url = git://github.com/vim-scripts/pydoc.vim.git
 [submodule "vim/bundle/python"]
 	path = vim/bundle/python
-	url = http://github.com/vim-scripts/python.vim--Vasiliev.git
+	url = git://github.com/vim-scripts/python.vim--Vasiliev.git
 [submodule "vim/bundle/repeat"]
 	path = vim/bundle/repeat
-	url = http://github.com/vim-scripts/repeat.vim.git
+	url = git://github.com/vim-scripts/repeat.vim.git
 [submodule "vim/bundle/snipmate"]
 	path = vim/bundle/snipmate
-	url = http://github.com/msanders/snipmate.vim.git
+	url = git://github.com/msanders/snipmate.vim.git
 [submodule "vim/bundle/supertab"]
 	path = vim/bundle/supertab
-	url = http://github.com/tsaleh/vim-supertab.git
+	url = git://github.com/tsaleh/vim-supertab.git
 [submodule "scmdiff"]
 	path = scmdiff
 	url = git://github.com/zalun/vim-scmdiff.git
@@ -48,58 +48,58 @@
 	url = git://github.com/zalun/vim-snippets.mootools.git
 [submodule "vim/bundle/surround"]
 	path = vim/bundle/surround
-	url = http://github.com/vim-scripts/surround.vim.git
+	url = git://github.com/vim-scripts/surround.vim.git
 [submodule "vim-tcomment"]
 	path = vim-tcomment
-	url = http://github.com/tsaleh/vim-tcomment.git
+	url = git://github.com/tsaleh/vim-tcomment.git
 [submodule "vim/bundle/taglist"]
 	path = vim/bundle/taglist
-	url = http://github.com/vim-scripts/taglist.vim.git
+	url = git://github.com/vim-scripts/taglist.vim.git
 [submodule "vim/bundle/tcomment"]
 	path = vim/bundle/tcomment
-	url = http://github.com/tsaleh/vim-tcomment.git
+	url = git://github.com/tsaleh/vim-tcomment.git
 [submodule "vim/bundle/tasklist"]
 	path = vim/bundle/tasklist
-	url = http://github.com/vim-scripts/TaskList.vim.git
+	url = git://github.com/vim-scripts/TaskList.vim.git
 [submodule "vim/bundle/unimpaired"]
 	path = vim/bundle/unimpaired
-	url = http://github.com/vim-scripts/unimpaired.vim.git
+	url = git://github.com/vim-scripts/unimpaired.vim.git
 [submodule "vim/bundle/utl"]
 	path = vim/bundle/utl
-	url = http://github.com/vim-scripts/utl.vim.git
+	url = git://github.com/vim-scripts/utl.vim.git
 [submodule "vim/bundle/vst"]
 	path = vim/bundle/vst
-	url = http://github.com/vim-scripts/VST.git
+	url = git://github.com/vim-scripts/VST.git
 [submodule "vim/bundle/wombat"]
 	path = vim/bundle/wombat
-	url = http://github.com/vim-scripts/wombat256.vim.git
+	url = git://github.com/vim-scripts/wombat256.vim.git
 [submodule "vim/bundle/zen"]
 	path = vim/bundle/zen
-	url = http://github.com/vim-scripts/Zen-Color-Scheme.git
+	url = git://github.com/vim-scripts/Zen-Color-Scheme.git
 [submodule "vim/bundle/zenburn"]
 	path = vim/bundle/zenburn
-	url = http://github.com/vim-scripts/Zenburn.git
+	url = git://github.com/vim-scripts/Zenburn.git
 [submodule "vim/bundle/pythoncomplete"]
 	path = vim/bundle/pythoncomplete
-	url = http://github.com/vim-scripts/pythoncomplete.git
+	url = git://github.com/vim-scripts/pythoncomplete.git
 [submodule "vim/bundle/xolox"]
 	path = vim/bundle/xolox
 	url = git://github.com/zalun/vim-xolox.git
 [submodule "vim/bundle/pylint"]
 	path = vim/bundle/pylint
-	url = http://github.com/vim-scripts/pylint.vim.git
+	url = git://github.com/vim-scripts/pylint.vim.git
 [submodule "vim/bundle/pyflakes"]
 	path = vim/bundle/pyflakes
-	url = http://github.com/vim-scripts/pyflakes.git
+	url = git://github.com/vim-scripts/pyflakes.git
 [submodule "vim/bundle/markdown"]
 	path = vim/bundle/markdown
-	url = http://github.com/vim-scripts/Markdown.git
+	url = git://github.com/vim-scripts/Markdown.git
 [submodule "vim/bundle/python_match"]
 	path = vim/bundle/python_match
-	url = http://github.com/vim-scripts/python_match.vim.git
+	url = git://github.com/vim-scripts/python_match.vim.git
 [submodule "vim/bundle/html5"]
 	path = vim/bundle/html5
-	url = http://github.com/vim-scripts/html5.vim.git
+	url = git://github.com/vim-scripts/html5.vim.git
 [submodule "vim/bundle/watermark"]
 	path = vim/bundle/watermark
 	url = git://github.com/vim-scripts/watermark.git

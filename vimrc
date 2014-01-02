@@ -123,6 +123,9 @@ if has("gui_running")
 		set guioptions-=m
 		set background=light
 		colorscheme solarized
+	else
+		colorscheme solarized
+		set guifont=Consolas:h10
 	endif
 	" toggle light/dark background with a F5 key
 	call togglebg#map("<F5>")
@@ -178,6 +181,10 @@ set softtabstop=4						" 4 spaces as a tab for bs/del
 set matchpairs+=<:>						" specially for html
 "set showmatch							" Briefly jump to the previous matching parent
 
+" highlight tabs and trailing spaces
+set list listchars=tab:→\ ,trail:·
+
+
 """" XXX: From dotfiles
 set scrolloff=2    " keep this many lines of context around cursor
 set esckeys        " make use of function keys possible
@@ -207,7 +214,7 @@ set wildignore=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn
 if has("autocmd")
 augroup vimrcEx
 au!
-	au BufNewFile,BufRead *.{md,mkd,mkdn,mark*} set filetype=markdown
+	au BufNewFile,BufRead *.{md,mkd,mkdn,mark*,txt} set filetype=markdown
 	au BufNewFile,BufRead *.json set filetype=javascript
 	" In plain-text files and svn commit buffers, wrap automatically at 78 chars
 	au FileType text,svn setlocal tw=78 fo+=t
@@ -241,6 +248,7 @@ au!
 	"au FileType python compiler pylint
 	"au FileType python compiler pyflakes
 	au FileType python set expandtab
+	au FileType javascript set expandtab
 
 	" setup file type for snipmate
 	"--------------------------------------------------------------------------
