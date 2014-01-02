@@ -93,7 +93,7 @@
 	url = git://github.com/vim-scripts/pyflakes.git
 [submodule "vim/bundle/markdown"]
 	path = vim/bundle/markdown
-	url = git://github.com/vim-scripts/Markdown.git
+	url = git://github.com/hallison/vim-markdown.git
 [submodule "vim/bundle/python_match"]
 	path = vim/bundle/python_match
 	url = git://github.com/vim-scripts/python_match.vim.git
