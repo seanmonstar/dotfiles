@@ -36,6 +36,8 @@ set backupdir=$HOME/temp/vim_backups/
 set directory=$HOME/temp/vim_swp/ 
 set noswapfile
 
+cd D:/Users/Sean/Documents/Mozilla
+
 " Establim els amples de tabulació
 
 au BufRead,BufNewFile *.py  set ai sw=4 sts=4 et tw=72 " Doc strs
@@ -125,7 +127,7 @@ if has("gui_running")
 		colorscheme solarized
 	else
 		colorscheme solarized
-		set guifont=Consolas:h10
+		set guifont=Consolas\ for\ Powerline\ FixedD:h10
 	endif
 	" toggle light/dark background with a F5 key
 	call togglebg#map("<F5>")
@@ -216,6 +218,7 @@ augroup vimrcEx
 au!
 	au BufNewFile,BufRead *.{md,mkd,mkdn,mark*,txt} set filetype=markdown
 	au BufNewFile,BufRead *.json set filetype=javascript
+	au BufNewFile,BufRead *.rs set filetype=rust
 	" In plain-text files and svn commit buffers, wrap automatically at 78 chars
 	au FileType text,svn setlocal tw=78 fo+=t
 
@@ -248,13 +251,12 @@ au!
 	"au FileType python compiler pylint
 	"au FileType python compiler pyflakes
 	au FileType python set expandtab
-	au FileType javascript set expandtab
 
 	" setup file type for snipmate
 	"--------------------------------------------------------------------------
 	au FileType python set ft=python.django
 	au FileType html set ft=htmldjango.html
-	au FileType javascript set ft=javascript.mootools 
+	"au FileType javascript set ft=javascript.mootools 
 
 	" kill calltip window if we move cursor or leave insert mode
 	au CursorMovedI * if pumvisible() == 0|pclose|endif
@@ -268,9 +270,11 @@ au!
 	autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
 	" Javascript indenting
-	au FileType javascript set sw=4 ts=4 noexpandtab
+	au FileType javascript set sw=2 ts=2 expandtab
+	" Rust indenting
+	au FileType rust set sw=4 ts=4 expandtab
 
-	autocmd BufWritePost *.js :JSHint 
+	"autocmd BufWritePost *.js :JSHint 
 
 	augroup END
 endif
@@ -280,6 +284,10 @@ endif
 " PyLint on demand
 au FileType python nmap	<F9> :Pylint<CR>
 au FileType javascript nmap <F9> :JSHint<CR>
+
+""" syntastic
+let g:syntastic_auto_loc_list=1
+let g:syntastic_always_populate_loc_list=1
 
 " bind ctrl+space for omnicompletion
 inoremap <Nul> <C-x><C-o>
@@ -333,6 +341,102 @@ map <C-t> <C-w>t
 
 """ Toggle the tag list bar
 nmap <F4> :TlistToggle<CR>
+
+""" Goyo discraction free writing
+nmap <F6> :Goyo<CR>
+function! g:goyo_before()
+  set lbr
+  set nolist
+endfunction
+
+function! g:goyo_after()
+  set list listchars=tab:→\ ,trail:·
+endfunction
+
+let g:goyo_callbacks = [function('g:goyo_before'), function('g:goyo_after')]
+
+""" CtrlP
+let g:ctrlp_cmd = 'CtrlPMixed'
+
+""" Airline
+set noshowmode
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline#extensions#whitespace#enabled = 0
+
+let g:airline_symbols.branch = '◊'
+let g:airline_left_sep = '⮀'
+let g:airline_left_alt_sep = '⮁'
+let g:airline_right_sep = '⮂'
+let g:airline_right_alt_sep = '⮃'
+
+let g:airline_powerline_fonts = 'fancy'
+
+function! AirLineMe()
+  function! Modified()
+    return &modified ? " +" : ''
+  endfunction
+
+  call airline#parts#define_raw('filename', '%<%f')
+  call airline#parts#define_function('modified', 'Modified')
+
+  let g:airline_section_b = airline#section#create_left(['filename'])
+  let g:airline_section_c = airline#section#create([''])
+  let g:airline_section_gutter = airline#section#create(['modified', '%='])
+  let g:airline_section_x = airline#section#create_right([''])
+  let g:airline_section_y = airline#section#create_right(['%l:%c'])
+  let g:airline_section_z = airline#section#create(['branch'])
+endfunction
+
+autocmd Vimenter * call AirLineMe()
+
+let g:airline_theme_patch_func = 'AirLineMyTheme'
+
+function! AirLineMyTheme(palette)
+  if g:airline_theme == 'solarized'
+    let secondary = ['#ffffff', '#657b83', 255, 240, '']
+
+    let magenta = ['#ffffff', '#d33682', 255, 125, '']
+    let blue = ['#ffffff', '#268bd2', 255, 33, '']
+    let green = ['#ffffff', '#859900', 255, 64, '']
+    let yellow = ['#ffffff', '#b58900', 255, 136, '']
+
+    let modes = {
+      \ 'normal': blue,
+      \ 'insert': yellow,
+      \ 'replace': green,
+      \ 'visual': magenta
+      \}
+
+    let a:palette.replace = copy(a:palette.insert)
+    let a:palette.replace_modified = a:palette.insert_modified
+
+    for key in ['insert', 'visual', 'normal']
+      " no red on modified
+      let a:palette[key . '_modified'].airline_c[0] = '#657b83'
+      let a:palette[key . '_modified'].airline_c[2] = 11
+
+      for section in ['a', 'b', 'y', 'z']
+        let airline_section = 'airline_' . section
+        if has_key(a:palette[key], airline_section)
+          " white foreground for most components; better contrast imo
+          let a:palette[key][airline_section][0] = '#ffffff'
+          let a:palette[key][airline_section][2] = 255
+        endif
+      endfor
+    endfor
+
+    for key in keys(modes)
+      let a:palette[key].airline_a = modes[key]
+      let a:palette[key].airline_z = modes[key]
+
+      let a:palette[key].airline_b = secondary
+      let a:palette[key].airline_y = secondary
+    endfor
+
+  endif
+endfunction
 
 """ NerdTree toggle
 nmap <F8> :NERDTreeToggle<CR>
