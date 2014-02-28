@@ -49,15 +49,9 @@
 [submodule "vim/bundle/surround"]
 	path = vim/bundle/surround
 	url = git://github.com/vim-scripts/surround.vim.git
-[submodule "vim-tcomment"]
-	path = vim-tcomment
-	url = git://github.com/tsaleh/vim-tcomment.git
 [submodule "vim/bundle/taglist"]
 	path = vim/bundle/taglist
 	url = git://github.com/vim-scripts/taglist.vim.git
-[submodule "vim/bundle/tcomment"]
-	path = vim/bundle/tcomment
-	url = git://github.com/tsaleh/vim-tcomment.git
 [submodule "vim/bundle/tasklist"]
 	path = vim/bundle/tasklist
 	url = git://github.com/vim-scripts/TaskList.vim.git
