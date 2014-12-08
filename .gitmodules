@@ -4,9 +4,6 @@
 [submodule "vim/bundle/NERD_tree"]
 	path = vim/bundle/NERD_tree
 	url = git://github.com/scrooloose/nerdtree.git
-[submodule "vim/bundle/SyntacFolds"]
-	path = vim/bundle/SyntacFolds
-	url = git://github.com/zalun/vim-SyntaxFolds.git
 [submodule "vim/bundle/delimitMate"]
 	path = vim/bundle/delimitMate
 	url = git://github.com/vim-scripts/delimitMate.vim.git
@@ -34,18 +31,6 @@
 [submodule "vim/bundle/supertab"]
 	path = vim/bundle/supertab
 	url = git://github.com/tsaleh/vim-supertab.git
-[submodule "scmdiff"]
-	path = scmdiff
-	url = git://github.com/zalun/vim-scmdiff.git
-[submodule "vim/bundle/scmdiff"]
-	path = vim/bundle/scmdiff
-	url = git://github.com/zalun/vim-scmdiff.git
-[submodule "snippets_mootools"]
-	path = snippets_mootools
-	url = git://github.com/zalun/vim-snippets.mootools.git
-[submodule "vim/bundle/snippets_mootools"]
-	path = vim/bundle/snippets_mootools
-	url = git://github.com/zalun/vim-snippets.mootools.git
 [submodule "vim/bundle/surround"]
 	path = vim/bundle/surround
 	url = git://github.com/vim-scripts/surround.vim.git
@@ -76,9 +61,6 @@
 [submodule "vim/bundle/pythoncomplete"]
 	path = vim/bundle/pythoncomplete
 	url = git://github.com/vim-scripts/pythoncomplete.git
-[submodule "vim/bundle/xolox"]
-	path = vim/bundle/xolox
-	url = git://github.com/zalun/vim-xolox.git
 [submodule "vim/bundle/pylint"]
 	path = vim/bundle/pylint
 	url = git://github.com/vim-scripts/pylint.vim.git
@@ -103,9 +85,6 @@
 [submodule "vim/bundle/pyte"]
 	path = vim/bundle/pyte
 	url = git://github.com/therubymug/vim-pyte.git
-[submodule "vim/bundle/lettuce"]
-	path = vim/bundle/lettuce
-	url = git@github.com:zalun/vim-lettuce-colors.git
 [submodule "vim/bundle/solarized"]
 	path = vim/bundle/solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
