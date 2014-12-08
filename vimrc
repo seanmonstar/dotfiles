@@ -36,7 +36,7 @@ set backupdir=$HOME/temp/vim_backups/
 set directory=$HOME/temp/vim_swp/ 
 set noswapfile
 
-cd D:/Users/Sean/Documents/Mozilla
+"cd D:/Users/Sean/Documents/Mozilla
 
 " Establim els amples de tabulació
 
