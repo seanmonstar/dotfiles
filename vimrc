@@ -41,11 +41,11 @@ set noswapfile
 " Establim els amples de tabulació
 
 au BufRead,BufNewFile *.py  set ai sw=4 sts=4 et tw=72 " Doc strs
-au BufRead,BufNewFile *.js  set ai sw=4 sts=4 et tw=72 " Doc strs
+au BufRead,BufNewFile *.js  set ai sw=2 sts=2 et tw=72 " Doc strs
 au BufRead,BufNewFile *.html set ai sw=4 sts=4 et tw=72 " Doc strs
-au BufRead,BufNewFile *.json set ai sw=4 sts=4 et tw=72 " Doc strs
+au BufRead,BufNewFile *.json set ai sw=2 sts=2 et tw=72 " Doc strs
 au BufNewFile *.html,*.py,*.pyw,*.c,*.h,*.json set fileformat=unix
-au! BufRead,BufNewFile *.json setfiletype json 
+au! BufRead,BufNewFile *.json setfiletype json
 
 let python_highlight_all=1
 syntax on
@@ -134,12 +134,6 @@ if has("gui_running")
 
 else
 	set t_Co=256
-	"set background=dark
-	" let g:zenburn_high_Contrast = 0
-	"colorscheme zenburn
-	"colorscheme watermark
-	"colorscheme nightsky
-	" :hi ColorColumn ctermbg=233
 
 	let g:solarized_termcolors=256
 	syntax enable
@@ -281,6 +275,8 @@ endif
 
 """" Key Mappings
 
+au FileType rust map <leader>t :call VimuxRunCommand("t")<CR>
+au FileType javascript  map <leader>t :call VimuxRunCommand("npm test")<CR>
 " PyLint on demand
 au FileType python nmap	<F9> :Pylint<CR>
 au FileType javascript nmap <F9> :JSHint<CR>
@@ -364,14 +360,20 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 let g:airline#extensions#whitespace#enabled = 0
+let g:tmuxline_powerline_separators = 0
 
 let g:airline_symbols.branch = '◊'
-let g:airline_left_sep = '⮀'
-let g:airline_left_alt_sep = '⮁'
-let g:airline_right_sep = '⮂'
-let g:airline_right_alt_sep = '⮃'
+if has('unix')
+	let g:airline_left_sep = ''
+	let g:airline_right_sep = ''
+else
+	let g:airline_left_sep = '⮀'
+	let g:airline_left_alt_sep = '⮁'
+	let g:airline_right_sep = '⮂'
+	let g:airline_right_alt_sep = '⮃'
+	let g:airline_powerline_fonts = 'fancy'
+endif
 
-let g:airline_powerline_fonts = 'fancy'
 
 function! AirLineMe()
   function! Modified()
