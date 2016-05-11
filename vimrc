@@ -133,12 +133,13 @@ if has("gui_running")
 	call togglebg#map("<F5>")
 
 else
-	set t_Co=256
+	set t_Co=16
 
-	let g:solarized_termcolors=256
+	"let g:solarized_termcolors=256
 	syntax enable
 	set background=dark
 	colorscheme solarized
+	call togglebg#map("<F5>")
 endif
 
 
@@ -380,7 +381,7 @@ function! AirLineMe()
     return &modified ? " +" : ''
   endfunction
 
-  call airline#parts#define_raw('filename', '%<%f')
+  call airline#parts#define_raw('filename', '%<%F')
   call airline#parts#define_function('modified', 'Modified')
 
   let g:airline_section_b = airline#section#create_left(['filename'])

@@ -1,9 +1,10 @@
-
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
+
+TERM="screen-256color"
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
@@ -89,9 +90,9 @@ alias l='ls -CF'
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-alias tmux='TERM=xterm-256color tmux'
-alias ta='tmux attach'
-alias t='cargo build && cargo test && cargo bench --no-run'
+alias tmux='TERM=screen-256color tmux -2'
+alias ta='tmux attach -d || tmux'
+alias t='cargo test'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
