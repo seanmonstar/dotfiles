@@ -1,26 +1,28 @@
+set nocompatible
 
-" Modificacions: 
-"	- Antoni Aloy (aaloy@apsl.net)
-"	- Piotr Zalewa (piotr@zalewa.info)
-"
-" Afegit : http://github.com/skyl/vim-config-python-ide/blob/supertab/.vimrc
-" Afegit :  http://code.google.com/p/pycopia/source/browse/trunk/vim/vimfiles/vimrc.vim
-" Tested with vim7
-"
-" 14/10/2919 - Added pathogen config and changed some configs (no pylint on
-"			   save)
-" 5/04/2010  - Added tComment from  http://www.vim.org/scripts/script.php?script_id=1173
-"            - Added better tab completion (test shift+tab)
-"            - Added markdown syntax
-"            - Added additional colour themes
-" 5/04/2010  - Merged with http://amix.dk/vim/vimrc.html
-" 26/04/2010 - Change surround
-"			   Better match it
-"			   Updated vcs plugin
-"
-" 8/07/2010  - Merges from  http://github.com/JoseBlanca/vim-for-python/blob/master/vimrc
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+" Vundle
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'scrooloose/syntastic'
+Plugin 'benmills/vimux'
+Plugin 'edkolev/tmuxline.vim'
+Plugin 'rust-lang/rust.vim'
+"Plugin 'Valloric/YouCompleteMe'
+Plugin 'junegunn/goyo.vim'
+
+
+call vundle#end()
+filetype plugin on
 
 
 """ ininite undo file
@@ -36,9 +38,8 @@ set backupdir=$HOME/temp/vim_backups/
 set directory=$HOME/temp/vim_swp/ 
 set noswapfile
 
-"cd D:/Users/Sean/Documents/Mozilla
-
-" Establim els amples de tabulació
+set mouse=a
+set ttimeoutlen=50
 
 au BufRead,BufNewFile *.py  set ai sw=4 sts=4 et tw=72 " Doc strs
 au BufRead,BufNewFile *.js  set ai sw=2 sts=2 et tw=72 " Doc strs
@@ -47,24 +48,17 @@ au BufRead,BufNewFile *.json set ai sw=2 sts=2 et tw=72 " Doc strs
 au BufNewFile *.html,*.py,*.pyw,*.c,*.h,*.json set fileformat=unix
 au! BufRead,BufNewFile *.json setfiletype json
 
-let python_highlight_all=1
 syntax on
 
 " Bad whitespace
-highlight BadWhitespace ctermbg=red guibg=red
-" Display tabs at the beginning of a line in Python mode as bad.
-au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /^\t\+/
+"highlight BadWhitespace ctermbg=red guibg=red
 " Make trailing whitespace be flagged as bad.
-au BufRead,BufNewFile *.js,*.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+"au BufRead,BufNewFile *.js,*.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
-filetype plugin on
 set iskeyword+=.
 
 "" Skip this file unless we have +eval
 if 1
-
-""" Settings 
-set nocompatible						" Don't be compatible with vi
 
 """" Movement
 " work more logically with wrapped lines
@@ -78,7 +72,6 @@ set incsearch							" show best match so far
 set hlsearch							" Highlight matches to the search 
 
 """" Display
-"set background=dark						" I use dark background
 set lazyredraw							" Don't repaint when scripts are running
 set scrolloff=3							" Keep 3 lines below and above the cursor
 set ruler								" line numbers and column the cursor is on
@@ -91,18 +84,6 @@ if has("gui_running")
 	set t_Co=256
 	set hlsearch
 	set clipboard=autoselect
-	
-	"LIGHT
-	"colorscheme pyte
-	"hi ColorColumn guibg=#e0d0d0
-
-	"DARK
-	"let g:zenburn_high_Contrast = 1
-	"colorscheme zenburn
-	"colorscheme lettuce
-	"colorscheme wombat
-	"colorscheme slate
-	"hi ColorColumn guibg=#303030
 
 	set nu
 	set guioptions-=T
@@ -119,8 +100,6 @@ if has("gui_running")
 		set background=light
 		colorscheme solarized
 	elseif has('unix')
-		" set guifont=ProFont\ 10
-		"set guifont=ProggyCleanTT\ 12
 		set guifont=Monaco\ 9
 		set guioptions-=m
 		set background=light
@@ -193,10 +172,6 @@ set history=100							" 100 Lines of history
 set showfulltag							" Show more information while completing tags
 filetype plugin indent on				" Let filetype plugins indent for me
 
-" set up tags
-set tags=tags;/
-set tags+=$HOME/.vim/tags/python.ctags
-
 """"" Folding
 set foldmethod=indent					" By default, use indent to determine folds
 set foldlevelstart=99					" All folds open by default
@@ -258,10 +233,8 @@ au!
 	au InsertLeave * if pumvisible() == 0|pclose|endif
 	
 	autocmd FileType python set omnifunc=pythoncomplete#Complete
-	autocmd FileType python.django set omnifunc=pythoncomplete#Complete
 	autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 	autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType htmldjango.html set omnifunc=htmlcomplete#CompleteTags
 	autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
 	" Javascript indenting
@@ -269,26 +242,50 @@ au!
 	" Rust indenting
 	au FileType rust set sw=4 ts=4 expandtab
 
-	"autocmd BufWritePost *.js :JSHint 
 
 	augroup END
 endif
 
 """" Key Mappings
 
+nmap <leader>] :NERDTreeFocus<CR>
+map <leader>z :call VimuxZoomRunner()<CR>
+
 au FileType rust map <leader>t :call VimuxRunCommand("t")<CR>
 au FileType javascript  map <leader>t :call VimuxRunCommand("npm test")<CR>
-" PyLint on demand
-au FileType python nmap	<F9> :Pylint<CR>
-au FileType javascript nmap <F9> :JSHint<CR>
 
 """ syntastic
 let g:syntastic_auto_loc_list=1
 let g:syntastic_always_populate_loc_list=1
+let g:syntastic_check_on_wq=0
+
+let g:syntastic_javascript_checkers = ['eslint']
+
+function! SyntasticESlintChecker()
+	let l:npm_bin = ''
+	let l:eslint = 'eslint'
+
+	if executable('npm')
+		let l:npm_bin = split(system('npm bin'), '\n')[0]
+	endif
+
+	if strlen(l:npm_bin) && executable(l:npm_bin . '/eslint')
+		let l:eslint = 'NODE_PATH=$NODE_PATH:' . l:npm_bin . ' eslint'
+	endif
+
+	let b:syntastic_javascript_eslint_exe = l:eslint
+endfunction
+
+autocmd FileType javascript :call SyntasticESlintChecker()
 
 " bind ctrl+space for omnicompletion
 inoremap <Nul> <C-x><C-o>
-imap <c-space> <C-x><C-o>
+
+" racer
+"au FileType rust set hidden
+"let g:racer_cmd="/home/sean/Downloads/racer/target/release/racer"
+"let $RUST_SRC_PATH="/home/sean/code/rust/src"
+"let g:ycm_rust_src_path = systemlist('rustc --print sysroot')[0] . "/lib/rustlib/src/rust/src"
 
 "Format 
 au FileType xml map <F9> :silent 1,$!xmllint --format --recover - 2>/dev/null<CR>
@@ -341,16 +338,16 @@ nmap <F4> :TlistToggle<CR>
 
 """ Goyo discraction free writing
 nmap <F6> :Goyo<CR>
-function! g:goyo_before()
+function! g:Goyo_before()
   set lbr
   set nolist
 endfunction
 
-function! g:goyo_after()
+function! g:Goyo_after()
   set list listchars=tab:→\ ,trail:·
 endfunction
 
-let g:goyo_callbacks = [function('g:goyo_before'), function('g:goyo_after')]
+let g:goyo_callbacks = [function('g:Goyo_before'), function('g:Goyo_after')]
 
 """ CtrlP
 let g:ctrlp_cmd = 'CtrlPMixed'
@@ -360,8 +357,8 @@ set noshowmode
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
+let g:airline#extensions#default#section_truncate_width = {}
 let g:airline#extensions#whitespace#enabled = 0
-let g:tmuxline_powerline_separators = 0
 
 let g:airline_symbols.branch = '◊'
 if has('unix')
@@ -440,6 +437,21 @@ function! AirLineMyTheme(palette)
 
   endif
 endfunction
+
+
+let g:tmuxline_powerline_separators = 0
+let g:tmuxline_preset = {
+	\'a': '#S',
+	\'win': ['#I', '#W'],
+	\'cwin': ['#I', '#W'],
+	\'y': ['%I:%M', '%Y-%m-%d'],
+	\'z': '#h',
+	\'options': {
+		\'status-justify': 'left'},
+	\'win_options': {
+		\'window-status-bell-fg': '#ffffff',
+		\'window-status-bell-bg': '#d33682'}
+	\}
 
 """ NerdTree toggle
 nmap <F8> :NERDTreeToggle<CR>

@@ -94,6 +94,11 @@ alias tmux='TERM=screen-256color tmux -2'
 alias ta='tmux attach -d || tmux'
 alias t='cargo test'
 
+alias rg='rg --sort-files'
+
+export RUSTUP_USE_HYPER=1
+export CARGO_INCREMENTAL=1
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -114,3 +119,8 @@ fi
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+# added by travis gem
+[ -f /home/sean/.travis/travis.sh ] && source /home/sean/.travis/travis.sh
+
+export PATH="$HOME/.yarn/bin:$PATH"

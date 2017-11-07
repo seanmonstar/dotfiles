@@ -1,5 +1,5 @@
 [user]
-	email = sean.monstar@gmail.com
+	email = sean@seanmonstar.com
 	name = Sean McArthur
 [alias]
 	b = branch
@@ -7,14 +7,17 @@
 	ca = commit --amend --no-edit
 	co = checkout
 	d = diff
-	f = fetch
+	f = fetch --prune
 	l = log --oneline -20 --no-merges
 	pf = push -f
 	pr = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
-	r = reset --hard
 	rh = reset --hard
 	s = status
 [core]
 	editor = vim
 [push]
 	default = simple
+[credentials]
+	helper = store
+[credential]
+	helper = store
