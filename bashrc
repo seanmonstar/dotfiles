@@ -54,9 +54,9 @@ fi
 GIT_PS1_SHOWDIRTYSTATE=true
 
 if [ "$color_prompt" = yes ]; then
-	PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[33m\]$(__git_ps1 " (%s) ")\[\033[00m\]\$ '
+	PS1=' \[\033[34m\]\w\[\033[33m\]$(__git_ps1 " (%s)") \[\033[00m\]\$ '
 else
-	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(__git_ps1 " [%s] ")\$ '
+	PS1='\w$(__git_ps1 " [%s] ")\$ '
 fi
 unset color_prompt force_color_prompt
 
@@ -95,9 +95,10 @@ alias ta='tmux attach -d || tmux'
 alias t='cargo test'
 
 alias rg='rg --sort-files'
+alias ddu='du -d 2 -h -t 100M'
+alias dutree='dutree -d 2 -a 100M'
 
-export RUSTUP_USE_HYPER=1
-export CARGO_INCREMENTAL=1
+export RUSTUP_USE_REQWEST=1
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like

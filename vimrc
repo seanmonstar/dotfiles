@@ -13,12 +13,16 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
-Plugin 'scrooloose/syntastic'
+"Plugin 'scrooloose/syntastic'
 Plugin 'benmills/vimux'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'rust-lang/rust.vim'
-"Plugin 'Valloric/YouCompleteMe'
+Plugin 'cespare/vim-toml'
 Plugin 'junegunn/goyo.vim'
+"Plugin 'blueyed/vim-diminactive'
+Plugin 'w0rp/ale'
+Plugin 'ervandew/supertab'
+
 
 
 call vundle#end()
@@ -113,8 +117,8 @@ if has("gui_running")
 
 else
 	set t_Co=16
-
 	"let g:solarized_termcolors=256
+	let g:solarized_termtrans=1
 	syntax enable
 	set background=dark
 	colorscheme solarized
@@ -244,39 +248,43 @@ au!
 
 
 	augroup END
+
+augroup Binary
+	au!
+	au BufReadPre   *.der let &bin=1
+	au BufReadPost  *.der if &bin | %!xxd
+	au BufReadPost  *.der set ft=xxd | endif
+	au BufWritePre  *.der if &bin | %!xxd -r
+	au BufWritePre  *.der endif
+	au BufWritePost *.der if &bin | %!xxd
+	au BufWritePost *.der set nomod | endif
+	augroup END
+
 endif
+
+""" DimInactive
+
+"let g:diminactive_use_syntax = 1 " in active windows dim syntax highlighting
+"let g:diminactive_enable_focus = 1
 
 """" Key Mappings
 
 nmap <leader>] :NERDTreeFocus<CR>
 map <leader>z :call VimuxZoomRunner()<CR>
+map <leader>T :call SyntasticCheck()<CR>
+nmap <leader>a <Plug>(ale_next_wrap)
+nmap <leader>A <Plug>(ale_previous_wrap)
 
 au FileType rust map <leader>t :call VimuxRunCommand("t")<CR>
 au FileType javascript  map <leader>t :call VimuxRunCommand("npm test")<CR>
 
 """ syntastic
-let g:syntastic_auto_loc_list=1
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_check_on_wq=0
+"let g:syntastic_auto_loc_list=1
+"let g:syntastic_always_populate_loc_list=1
+"let g:syntastic_check_on_wq=0
+"let g:syntastic_mode_map = {"mode": "passive"}
 
-let g:syntastic_javascript_checkers = ['eslint']
-
-function! SyntasticESlintChecker()
-	let l:npm_bin = ''
-	let l:eslint = 'eslint'
-
-	if executable('npm')
-		let l:npm_bin = split(system('npm bin'), '\n')[0]
-	endif
-
-	if strlen(l:npm_bin) && executable(l:npm_bin . '/eslint')
-		let l:eslint = 'NODE_PATH=$NODE_PATH:' . l:npm_bin . ' eslint'
-	endif
-
-	let b:syntastic_javascript_eslint_exe = l:eslint
-endfunction
-
-autocmd FileType javascript :call SyntasticESlintChecker()
+"let g:syntastic_rust_checkers = ['cargo']
 
 " bind ctrl+space for omnicompletion
 inoremap <Nul> <C-x><C-o>
@@ -287,8 +295,12 @@ inoremap <Nul> <C-x><C-o>
 "let $RUST_SRC_PATH="/home/sean/code/rust/src"
 "let g:ycm_rust_src_path = systemlist('rustc --print sysroot')[0] . "/lib/rustlib/src/rust/src"
 
-"Format 
-au FileType xml map <F9> :silent 1,$!xmllint --format --recover - 2>/dev/null<CR>
+" RLS (rust) via ALE
+let g:ale_lints = {
+    \'rust': ['rls'],
+\}
+let g:ale_completion_enabled = 1
+let g:ale_rust_rls_executable = '/home/sean/Downloads/ra_lsp_server'
 
 " tab navigation (next tab) with alt left / alt right
 nnoremap  <a-right>  gt
@@ -493,10 +505,6 @@ endfunc
 
 endif
 
-"No executam pylint cada vegada, descomentar
-let g:pylint_onwrite = 0
-let g:pylint_signs = 0
-let g:pylint_show_rate = 1
 
 " Taglist variables
 " Display function name in status bar:
