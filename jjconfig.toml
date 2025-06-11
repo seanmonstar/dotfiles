@@ -1,0 +1,7 @@
+[user]
+name = "Sean McArthur"
+email = "sean@seanmonstar.com"
+
+[aliases]
+d = ["diff"]
+
