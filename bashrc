@@ -99,6 +99,7 @@ alias ddu='du -d 2 -h -t 100M'
 alias dutree='dutree -d 2 -a 100M'
 
 export RUSTUP_USE_REQWEST=1
+export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
