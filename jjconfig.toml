@@ -2,6 +2,11 @@
 name = "Sean McArthur"
 email = "sean@seanmonstar.com"
 
+[git]
+push-new-bookmarks = true
+
 [aliases]
 d = ["diff"]
+f = ["git", "fetch"]
+s = ["status"]
 
