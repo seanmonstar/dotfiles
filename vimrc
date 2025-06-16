@@ -297,10 +297,14 @@ inoremap <Nul> <C-x><C-o>
 
 " RLS (rust) via ALE
 let g:ale_lints = {
-    \'rust': ['rls'],
+    \'rust': ['analyzer'],
 \}
 let g:ale_completion_enabled = 1
-let g:ale_rust_rls_executable = '/home/sean/Downloads/ra_lsp_server'
+"let g:ale_rust_analyzer_config = {
+"    \'diagnostics': {
+"        \'disabled': ['inactive-code'],
+"    \}
+"\}
 
 " tab navigation (next tab) with alt left / alt right
 nnoremap  <a-right>  gt
@@ -461,8 +465,7 @@ let g:tmuxline_preset = {
 	\'options': {
 		\'status-justify': 'left'},
 	\'win_options': {
-		\'window-status-bell-fg': '#ffffff',
-		\'window-status-bell-bg': '#d33682'}
+		\'window-status-format': '#{?window_bell_flag,#[fg=#ffffff#,bg=#d33682],#[fg=colour240#,bg=colour0]} #I | #W '}
 	\}
 
 """ NerdTree toggle
