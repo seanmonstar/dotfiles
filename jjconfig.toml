@@ -2,6 +2,10 @@
 name = "Sean McArthur"
 email = "sean@seanmonstar.com"
 
+[ui]
+default-command = ["log"]
+editor = "vim"
+
 [git]
 push-new-bookmarks = true
 
