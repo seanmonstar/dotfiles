@@ -300,11 +300,11 @@ let g:ale_lints = {
     \'rust': ['analyzer'],
 \}
 let g:ale_completion_enabled = 1
-"let g:ale_rust_analyzer_config = {
-"    \'diagnostics': {
-"        \'disabled': ['inactive-code'],
-"    \}
-"\}
+let g:ale_rust_analyzer_config = {
+    \'diagnostics': {
+        \'disabled': ['inactive-code'],
+    \}
+\}
 
 " tab navigation (next tab) with alt left / alt right
 nnoremap  <a-right>  gt
