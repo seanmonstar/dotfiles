@@ -9,8 +9,12 @@ editor = "vim"
 [git]
 push-new-bookmarks = true
 
+[revset-aliases]
+'unreleased' = 'heads(::@ & tags())::@'
+
 [aliases]
 d = ["diff"]
 f = ["git", "fetch"]
 s = ["status"]
-
+re = ["rebase", "-d"]
+unreleased = ["log", "-r", "unreleased"]
