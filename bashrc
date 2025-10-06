@@ -101,6 +101,12 @@ alias dutree='dutree -d 2 -a 100M'
 export RUSTUP_USE_REQWEST=1
 export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
 
+# nodejs/npm/nvm/fnm
+if command -v fnm &> /dev/null; then
+    eval "$(fnm env)"
+    alias nvm=fnm
+fi
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
