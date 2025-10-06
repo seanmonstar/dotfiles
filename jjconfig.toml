@@ -18,3 +18,5 @@ f = ["git", "fetch"]
 s = ["status"]
 re = ["rebase", "-d"]
 unreleased = ["log", "-r", "unreleased"]
+
+init = ["git", "init", "--colocate"]
