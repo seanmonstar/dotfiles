@@ -50,6 +50,111 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+# jj-vcs
+
+JJ_OPTS=(--ignore-working-copy --at-op=@ --no-pager)
+
+_jj_last_op=""
+_jj_cached_segment=""
+
+__jj_prompt() {
+  jj root "${JJ_OPTS[@]}" >/dev/null 2>&1 || return 0
+
+  local red=$'\e[31m';
+  local green=$'\e[32m';
+  local yellow=$'\e[33m';
+  local blue=$'\e[34m';
+  local magenta=$'\e[35m';
+  local grey=$'\e[90m';
+  local reset=$'\e[0m';
+
+  # Cache check
+  local op
+  op=$(jj op log "${JJ_OPTS[@]}" --limit 1 -T 'id.short()' 2>/dev/null) || return 0
+  if [ "$op" = "$_jj_last_op" ]; then
+    printf "%s" "$_jj_cached_segment"
+    return 0
+  fi
+  _jj_last_op="$op"
+
+  # --- Call 1: ids, flags, diff summary ---
+  local IFS='#'
+  read -r change flags diffsum < <(
+    jj log "${JJ_OPTS[@]}" -r @ -T \
+      "separate('#',
+        change_id.shortest(),
+        concat(
+          if(conflict,'💥'),
+          if(divergent,'🚧'),
+          if(hidden,'👻'),
+          if(immutable,'🔒'),
+          if(!description,'✏ ')
+        ),
+        diff.summary()
+      )" 2>/dev/null
+  )
+
+  # Parse diff summary counts
+  local a d m
+  a=$(grep -c '^A ' <<<"$diffsum"); d=$(grep -c '^D ' <<<"$diffsum")
+  m=$(grep -Ec '^(M|R) ' <<<"$diffsum")
+
+  # --- Branch resolution ---
+  local branch
+  branch=$(jj log "${JJ_OPTS[@]}" --no-graph --limit 1 \
+    -r "coalesce(
+          heads(::@ & bookmarks()),
+          heads(::@ & remote_bookmarks()),
+          heads(::@ & tags()),
+          heads(@:: & bookmarks()),
+          heads(@:: & remote_bookmarks()),
+          heads(@:: & tags()),
+          trunk()
+        )" \
+    -T "separate(' ', bookmarks, tags)" 2>/dev/null | cut -d' ' -f1)
+
+  # --- Call 2: before/after counts ---
+  local before after
+  before=$(jj log "${JJ_OPTS[@]}" -r "@..$branch" -T '"x"' 2>/dev/null | wc -c)
+  after=$(jj log "${JJ_OPTS[@]}" -r "$branch..@" -T '"x"' 2>/dev/null | wc -c)
+
+  # --- Call 3: remote tracking ---
+  local ahead behind ahead_plus behind_plus
+  read -r _ ahead behind ahead_plus behind_plus < <(
+    jj bookmark list "${JJ_OPTS[@]}" -r "$branch" -T \
+      "if(remote,
+         separate(' ',
+           name ++ '@' ++ remote,
+           coalesce(tracking_ahead_count.exact(),tracking_ahead_count.lower()),
+           coalesce(tracking_behind_count.exact(),tracking_behind_count.lower()),
+           if(tracking_ahead_count.exact(),'0','+'),
+           if(tracking_behind_count.exact(),'0','+')
+         ) ++ '\n'
+       )" 2>/dev/null
+  )
+
+  # --- Assemble segment ---
+  local seg=""
+  [ -n "$branch" ] && seg+="${green}${branch}${reset}"
+  [ "$before" -gt 0 ] && seg+=" ‹$before"
+  [ "$after"  -gt 0 ] && seg+=" ›$after"
+
+  [ -n "$behind" ] && [ "$behind" != "0" ] && seg+=" ⇣${behind}${behind_plus}"
+  [ -n "$ahead"  ] && [ "$ahead"  != "0" ] && seg+=" ⇡${ahead}${ahead_plus}"
+
+  seg+=" ${magenta}${change}${reset}${flags:+ $red$flags$reset}"
+  [ "$a" -gt 0 ] && seg+=" ${green}+${a}${reset}"
+  [ "$d" -gt 0 ] && seg+=" ${red}-${d}${reset}"
+  [ "$m" -gt 0 ] && seg+=" ${yellow}^${m}${reset}"
+
+  _jj_cached_segment="$seg"
+  printf "%s" "$seg"
+}
+
+#PS1=' \[\033[34m\]\w\[\033[00m\] ($(__jj_prompt)) \[\033[00m\]\$ '
+
+# /jj
+
 # Show an asterisk or symbol when working tree has uncommited changes
 GIT_PS1_SHOWDIRTYSTATE=true
 
