@@ -16,7 +16,10 @@ push-new-bookmarks = true
 d = ["diff"]
 f = ["git", "fetch"]
 s = ["status"]
+
 re = ["rebase", "-d"]
+remaster = ["rebase", "-d", "trunk()", "-r"]
+
 unreleased = ["log", "-r", "unreleased"]
 
 init = ["git", "init", "--colocate"]
