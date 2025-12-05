@@ -7,7 +7,9 @@ default-command = ["log"]
 editor = "vim"
 
 [git]
-push-new-bookmarks = true
+# what do I do to replicate this behavior? I don't want to auto track
+# other people's bookmarks. Feels like a step backwards...
+# push-new-bookmarks = true
 
 [revset-aliases]
 'unreleased' = 'heads(::@ & tags())::@'
@@ -18,7 +20,7 @@ f = ["git", "fetch"]
 s = ["status"]
 
 re = ["rebase", "-d"]
-remaster = ["rebase", "-d", "trunk()", "-r"]
+remaster = ["rebase", "--onto", "trunk()", "-r"]
 
 unreleased = ["log", "-r", "unreleased"]
 ll = ["log", "-r", "ancestors(@, 10)"]
