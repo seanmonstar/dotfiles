@@ -10,6 +10,7 @@ editor = "vim"
 # what do I do to replicate this behavior? I don't want to auto track
 # other people's bookmarks. Feels like a step backwards...
 # push-new-bookmarks = true
+git_push_bookmark = '"sean/" ++ change_id.short()'
 
 [revset-aliases]
 'unreleased' = 'heads(::@ & tags())::@'
